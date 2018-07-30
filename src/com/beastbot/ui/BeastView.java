@@ -117,6 +117,7 @@ public class BeastView implements KeyListener{
 		centraldate = dbobj.loadCentralizedDate(h2con);
 		ViewList = dbobj.getBeastViewData(h2con, "SELECT * FROM TBL_BEAST_VIEW ORDER BY ID;");
 		initialize();
+		frmBeastview.setVisible(true);
 	}
 
 	public void Alligntable()
@@ -149,7 +150,7 @@ public class BeastView implements KeyListener{
 		
 		//Main frmBeastView Layout Design
 		frmBeastview = new JFrame();
-		frmBeastview.setTitle("Mathartz Trade Board");
+		frmBeastview.setTitle("Mathartz Amaze Board");
 		frmBeastview.setBackground(new Color(36,34,29));
 		frmBeastview.getContentPane().setBackground(new Color(51, 51, 51));
 		frmBeastview.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -159,7 +160,7 @@ public class BeastView implements KeyListener{
 		frmBeastview.getContentPane().add(pnlhead, BorderLayout.NORTH);
 		pnlhead.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblhead = new JLabel("Mathart'z View");
+		JLabel lblhead = new JLabel("Mathart'z AMAZE");
 		
 		lblhead.setHorizontalAlignment(SwingConstants.CENTER);		
 		lblhead.setFont(new Font("Verdana", Font.PLAIN, 24));
@@ -244,12 +245,31 @@ public class BeastView implements KeyListener{
 		btnrun.setPreferredSize(new Dimension(150, 35));
 		
 		btndcsv = new JButton("D-CSV");
+		btndcsv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String [][] dashboard = dbobj.getMultiColumnRecords(h2con,"SELECT * FROM TBL_BEAST_VIEW;");
+				dbobj.dCSV(dashboard, "dashboard");
+				String [][] tradein = dbobj.getMultiColumnRecords(h2con,"SELECT * FROM TBL_TRADE_INFO;");
+				dbobj.dCSV(tradein, "tradeinfo");
+				JOptionPane.showMessageDialog(frmBeastview,"Trade Points & Trade Info Downloaded", "INFO",JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
 		btndcsv.setPreferredSize(new Dimension(150, 35));
 		
 		btnclear = new JButton("CLEAR");
+		btnclear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) 
+			{
+				int opcion = JOptionPane.showConfirmDialog(null, "Are you sure, Want to Clear ?\n It will get deleted point from dashboard & TradeInfo.", "Clear Trades", JOptionPane.YES_NO_OPTION);
+				if (opcion == 0) {
+				dbobj.executeNonQuery(h2con, "UPDATE TBL_BEAST_VIEW set F1POINT=0, F2POINT=0, F3POINT=0, F4POINT=0, F5POINT=0 where id > 0;");
+				dbobj.executeNonQuery(h2con, "DELETE FROM TBL_TRADE_INFO;");
+				}
+			}
+		});
 		btnclear.setPreferredSize(new Dimension(150, 35));
 		
-		btnstop = new JButton("STOP");
+		btnstop = new JButton("SYNC **");
 		btnstop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
@@ -332,9 +352,9 @@ public class BeastView implements KeyListener{
 					.addContainerGap()
 					.addComponent(txtdd, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtmmm, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtmmm, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtyy, GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+					.addComponent(txtyy, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btndatefix)
 					.addContainerGap())
@@ -343,10 +363,10 @@ public class BeastView implements KeyListener{
 			gl_pnldown.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_pnldown.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_pnldown.createParallelGroup(Alignment.TRAILING)
-						.addComponent(txtdd, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-						.addComponent(btndatefix, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_pnldown.createParallelGroup(Alignment.BASELINE)
+					.addGroup(gl_pnldown.createParallelGroup(Alignment.LEADING)
+						.addComponent(txtdd, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+						.addComponent(btndatefix, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+						.addGroup(gl_pnldown.createParallelGroup(Alignment.BASELINE)
 							.addComponent(txtyy, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
 							.addComponent(txtmmm, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)))
 					.addContainerGap())

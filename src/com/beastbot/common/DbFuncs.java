@@ -1,5 +1,6 @@
 package com.beastbot.common;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -46,7 +47,8 @@ public class DbFuncs {
 			if ((condb == null) || (condb.isClosed()))
 			{
 				JdbcDataSource ds = new JdbcDataSource();
-				dbName = "C:\\Users\\findc06\\Desktop\\Mathartz_BeastBot//Embedded_DB/BEAST_BOT_DB;AUTO_SERVER=TRUE";
+				//dbName = "jdbc:h2:C:\\Users\\findc06\\Desktop\\MathArtz_DBs/MATHARTZ_AMAZE_DB;AUTO_SERVER=TRUE";
+				//dbName = "C:\\Users\\findc06\\Desktop\\Mathartz_BeastBot//Embedded_DB/BEAST_BOT_DB;AUTO_SERVER=TRUE";
 		        ds.setURL("jdbc:h2:"+dbName);
 		        condb = ds.getConnection(USER,PASS);
 		        conn = condb;
@@ -66,7 +68,7 @@ public class DbFuncs {
 		{
 			input =new FileInputStream(configprop);
 			prop.load(input);
-			dbName = System.getProperty("user.dir")+prop.getProperty("DB_HOST_PATH").replace("/", File.separator);
+			dbName = prop.getProperty("DB_HOST_PATH").replace("/", File.separator);
 			USER = prop.getProperty("DB_USER");
 			PASS = prop.getProperty("DB_PASS");
 			logpath = configlogfile("BEASTBOT_LOG");
@@ -665,4 +667,69 @@ public class DbFuncs {
 		}
 		return path;
 	}
+	public void dCSV(String [][] recs,  String filename)
+    {
+	    	String dir = System.getProperty("user.dir");
+			String Sep= System.getProperty("file.separator");
+	        BufferedWriter bWrite1 = null;
+	        String timeStamp = new SimpleDateFormat("dd-MM-yyyy-HH-mm-ss", Locale.ENGLISH).format(new Date());
+	        File myFile = new File(dir+Sep+filename+"_"+timeStamp+".csv"); 
+			try
+			{
+				 if(!(myFile.exists()))
+				 { 
+			            myFile.createNewFile(); 
+			            System.out.println("New File created...."); 
+			     }
+				 else
+				 {
+					 myFile.delete();
+					 myFile.createNewFile();
+				 }
+				 bWrite1 = new BufferedWriter(new java.io.FileWriter(myFile));
+				 if (filename.equalsIgnoreCase("dashboard"))
+				 {
+					 for(int i=0; i < recs.length; i++)
+					 {
+						 if (i==0)
+						 {
+							 bWrite1.write("ID, HEAD , F1 POINT, F2 POINT, F3 POINT, F4 POINT, F5 POINT, PLAYER ");
+							 bWrite1.newLine();
+						 }
+						 bWrite1.write(recs[i][0]+","+ recs[i][1]+","+recs[i][2]+","+recs[i][3]+","+recs[i][4]+","+recs[i][5]+","+recs[i][6]+","+recs[i][7]);
+						 bWrite1.newLine();
+					 }
+				 }
+				 else if (filename.equalsIgnoreCase("tradeinfo"))
+				 {
+					 for(int i=0; i < recs.length; i++)
+					 {
+						 if (i==0)
+						 {
+							 bWrite1.write("ID, FNAME , ORDER TYPE, WAY, FST, ORDER ID, PRICE");
+							 bWrite1.newLine();
+						 }
+						 bWrite1.write(recs[i][0]+","+ recs[i][1]+","+recs[i][2]+","+recs[i][3]+","+recs[i][4]+","+recs[i][5]+","+recs[i][6]);
+						 bWrite1.newLine();
+					 }
+				 }
+				 bWrite1.flush();
+				 
+			}
+			catch(Exception ex)
+			{
+				if (bWrite1 != null) try {
+					bWrite1.close();
+					
+				 } catch (IOException ioe2) {
+				    // just ignore it
+				 }
+			}
+			finally
+			{
+				
+			}
+    }
+
+	
 }
