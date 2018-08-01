@@ -178,10 +178,21 @@ public class presto_commons {
 		List<Scriptsdetail> sciptsdetailobj=new ArrayList<Scriptsdetail>(); 
 		try
 		{
-			//Getting Detial for NSECM, CM, Equites
+			//Getting Details for NSECM, CM, Equites
 			checkandLoginFinvasia();
-			SYMBOLDETAIL = get_CM_FUT_Details("NSEFO", strSymbol, "FO", "FUTIDX");
+			
+			
 			Scriptsdetail sc;
+			SYMBOLDETAIL = get_CM_FUT_Details("NSECM", strSymbol, "CM", "Equities");
+			if (SYMBOLDETAIL != null)
+			{
+				for (SymbolDetail sd : SYMBOLDETAIL) 
+				{
+					sc = new Scriptsdetail(sd.getSecID(), sd.getSymbol(), sd.getExchange(), sd.getInstrumenttype(),sd.getLotsize(), sd.getTicksize(), sd.getExpiryDay(), sd.getExpiryMonth(), sd.getOpType(), sd.getStrikePrice());
+					sciptsdetailobj.add(sc);
+				}
+			}
+			SYMBOLDETAIL = get_CM_FUT_Details("NSEFO", strSymbol, "FO", "FUTIDX");
 			if (SYMBOLDETAIL != null)
 			{
 				for (SymbolDetail sd : SYMBOLDETAIL) 

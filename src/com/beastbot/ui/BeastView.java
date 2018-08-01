@@ -272,8 +272,7 @@ public class BeastView implements KeyListener{
 		btnstop = new JButton("SYNC **");
 		btnstop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
-			{
-				
+			{				
 				try
 				{
 				    String [] updatebeastview = new String[CommonObjects.GlobalBeastViewList.size()];
@@ -352,8 +351,8 @@ public class BeastView implements KeyListener{
 					.addContainerGap()
 					.addComponent(txtdd, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(txtmmm, GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(txtmmm, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addComponent(txtyy, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btndatefix)
