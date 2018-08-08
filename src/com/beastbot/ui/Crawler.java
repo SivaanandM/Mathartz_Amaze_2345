@@ -23,6 +23,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import com.beastbot.common.CommonObjects;
 import com.beastbot.common.DbFuncs;
 import com.beastbot.list.BeastViewList;
 import com.beastbot.list.Scriptsdetail;
@@ -168,7 +169,7 @@ public class Crawler {
 		innerpanel.add(lblSymbol);
 		
 		txtsymbol = new JTextField();
-		txtsymbol.setText("NIFTY");
+		txtsymbol.setText(CommonObjects.GlobalSoftwarefor);
 		txtsymbol.setHorizontalAlignment(SwingConstants.CENTER);
 		txtsymbol.setForeground(new Color(255, 220, 135));
 		txtsymbol.setFont(new Font("Verdana", Font.PLAIN, 20));

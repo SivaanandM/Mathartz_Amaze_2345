@@ -13,6 +13,7 @@ import com.beastbot.presto.presto_commons;
 public class CommonObjects 
 {
 	public static presto_commons objpresto;
+	
 	public static Boolean isRunning = false;
 	public static List<FormulaData> GlobalAmazeFormulaList;
 	public static List<FormulaData> GlobalAmazeF2;
@@ -31,5 +32,6 @@ public class CommonObjects
 	public static List<Tradeinfo> GlobalTradeInfo;
 	public static String[][] Globaluniqueheadid;
 	public static String[][] Globaltradlinemap;
+	public static String GlobalSoftwarefor;
 		
 }

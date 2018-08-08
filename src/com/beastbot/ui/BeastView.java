@@ -130,10 +130,12 @@ public class BeastView implements KeyListener{
 		if  (prop.getProperty("SOFTWARE").equalsIgnoreCase("NIFTY"))
 		{
 			strtitle = "MATHARTZ NIFTY";
+			CommonObjects.GlobalSoftwarefor="NIFTY";
 		}
 		else
 		{
 			strtitle = "MATHARTZ BANKNIFTY";
+			CommonObjects.GlobalSoftwarefor="BANKNIFTY";
 		}
 		dbobj = new DbFuncs();
 		h2con = dbobj.CheckandConnectDB(h2con);
@@ -174,7 +176,7 @@ public class BeastView implements KeyListener{
 		
 		//Main frmBeastView Layout Design
 		frmBeastview = new JFrame();
-		frmBeastview.setTitle(strtitle.replace("MATHARTZ ", ""));
+		frmBeastview.setTitle(CommonObjects.GlobalSoftwarefor);
 		frmBeastview.setBackground(new Color(36,34,29));
 		frmBeastview.getContentPane().setBackground(new Color(51, 51, 51));
 		frmBeastview.getContentPane().setLayout(new BorderLayout(0, 0));
