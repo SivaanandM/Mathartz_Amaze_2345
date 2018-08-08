@@ -344,7 +344,9 @@ public class Formulations {
 											+ ", ISEND=false WHERE FNAME='"+Fname+"' and ID="+Identity+";";
 					objdb.executeNonQuery(h2con, update);
 				}
-				JOptionPane.showMessageDialog(frmformula, "Formula Saved Sucessfully ", "INFO",JOptionPane.INFORMATION_MESSAGE);
+				//JOptionPane.showMessageDialog(frmformula, "Formula Saved Sucessfully ", "INFO",JOptionPane.INFORMATION_MESSAGE);
+				frmformula.dispose();
+		        //System.exit(0); //calling the method is a must
 			}
 		});
 		btnsave.setBounds(10, 484, 256, 45);

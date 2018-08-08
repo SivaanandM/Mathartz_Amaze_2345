@@ -68,7 +68,14 @@ public class DbFuncs {
 		{
 			input =new FileInputStream(configprop);
 			prop.load(input);
-			dbName = prop.getProperty("DB_HOST_PATH").replace("/", File.separator);
+			if  (prop.getProperty("SOFTWARE").toString().equalsIgnoreCase("NIFTY"))
+			{
+				dbName = prop.getProperty("DB_HOST_PATH").replace("/", File.separator);
+			}
+			else
+			{
+				dbName = prop.getProperty("DB_HOST_BANKNIFTY_PATH").replace("/", File.separator);
+			}
 			USER = prop.getProperty("DB_USER");
 			PASS = prop.getProperty("DB_PASS");
 			logpath = configlogfile("BEASTBOT_LOG");
@@ -696,7 +703,7 @@ public class DbFuncs {
 							 bWrite1.write("ID, HEAD , F1 POINT, F2 POINT, F3 POINT, F4 POINT, F5 POINT, PLAYER ");
 							 bWrite1.newLine();
 						 }
-						 bWrite1.write(recs[i][0]+","+ recs[i][1]+","+recs[i][2]+","+recs[i][3]+","+recs[i][4]+","+recs[i][5]+","+recs[i][6]+","+recs[i][7]);
+						 bWrite1.write(recs[i][0]+","+ recs[i][1]+","+recs[i][3]+","+recs[i][4]+","+recs[i][5]+","+recs[i][6]+","+recs[i][7]+","+recs[i][2]);
 						 bWrite1.newLine();
 					 }
 				 }

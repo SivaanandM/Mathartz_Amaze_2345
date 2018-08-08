@@ -8,12 +8,17 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -83,10 +88,10 @@ public class BeastView implements KeyListener{
     String col[]= {"ID","HEAD","F1 Point","F2 Point","F3 Point","F4 Point","F5 Point","PLAYER"};
     List<BeastViewList> ViewList ;
     private static int HEADER_HEIGHT = 32;
-    
+    private String configprop=System.getProperty("user.dir")+File.separator+"conf"+File.separator+"feed.properties";
     TableColumnModel columnModel;
     DefaultTableCellRenderer renderer;
-    
+    String strtitle="";
     Connection h2con=null;
     
 
@@ -111,6 +116,25 @@ public class BeastView implements KeyListener{
 	 */
 	public BeastView() 
 	{
+		Properties prop = new Properties();
+		InputStream input = null;
+		
+		try {
+			input =new FileInputStream(configprop);
+			prop.load(input);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+		if  (prop.getProperty("SOFTWARE").equalsIgnoreCase("NIFTY"))
+		{
+			strtitle = "MATHARTZ NIFTY";
+		}
+		else
+		{
+			strtitle = "MATHARTZ BANKNIFTY";
+		}
 		dbobj = new DbFuncs();
 		h2con = dbobj.CheckandConnectDB(h2con);
 		CommonObjects.objpresto = new presto_commons();
@@ -150,7 +174,7 @@ public class BeastView implements KeyListener{
 		
 		//Main frmBeastView Layout Design
 		frmBeastview = new JFrame();
-		frmBeastview.setTitle("Mathartz Amaze Board");
+		frmBeastview.setTitle(strtitle.replace("MATHARTZ ", ""));
 		frmBeastview.setBackground(new Color(36,34,29));
 		frmBeastview.getContentPane().setBackground(new Color(51, 51, 51));
 		frmBeastview.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -160,7 +184,7 @@ public class BeastView implements KeyListener{
 		frmBeastview.getContentPane().add(pnlhead, BorderLayout.NORTH);
 		pnlhead.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JLabel lblhead = new JLabel("Mathart'z AMAZE");
+		JLabel lblhead = new JLabel(strtitle);
 		
 		lblhead.setHorizontalAlignment(SwingConstants.CENTER);		
 		lblhead.setFont(new Font("Verdana", Font.PLAIN, 24));
@@ -269,7 +293,7 @@ public class BeastView implements KeyListener{
 		});
 		btnclear.setPreferredSize(new Dimension(150, 35));
 		
-		btnstop = new JButton("SYNC **");
+		btnstop = new JButton("STOP **");
 		btnstop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{				

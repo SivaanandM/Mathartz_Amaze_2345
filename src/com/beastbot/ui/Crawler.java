@@ -295,6 +295,7 @@ public class Crawler {
 						PlayerEdit(seedid);
 					}
 				}
+				frmcrawler.dispose();
 			}
 		});
 		btnSave.setBounds(20, 292, 297, 38);
@@ -383,7 +384,7 @@ public class Crawler {
 				 identity = dbobj.getIdentityforInsert(h2con, "INSERT INTO TBL_TRADE_LINE (HEADID, HEADDISPLAY, HEADSYMBOL) VALUES "
 						+ "('"+headdata.get(0).getSecid()+"','"+strheaddisplay+"','"+headdata.get(0).getSymbol()+"' );");
 				 dbobj.executeNonQuery(h2con, "INSERT INTO TBL_BEAST_VIEW (ID,HEADDISPLAY) VALUES ("+identity+",'"+strheaddisplay+"');");
-				JOptionPane.showMessageDialog(frmcrawler,"Head Added to Trade Line Identity : "+String.valueOf(identity), "INFO",JOptionPane.INFORMATION_MESSAGE);
+				//JOptionPane.showMessageDialog(frmcrawler,"Head Added to Trade Line Identity : "+String.valueOf(identity), "INFO",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 			{
@@ -424,7 +425,7 @@ public class Crawler {
 			{
 				 dbobj.executeNonQuery(h2con, "UPDATE TBL_TRADE_LINE SET HEADID='"+headdata.get(0).getSecid()+"', HEADDISPLAY='"+strheaddisplay+"', HEADSYMBOL='"+headdata.get(0).getSymbol()+"' WHERE ID ="+id+";");
 				 dbobj.executeNonQuery(h2con, "UPDATE TBL_BEAST_VIEW SET HEADDISPLAY='"+strheaddisplay+"' WHERE ID ="+id+";");
-				JOptionPane.showMessageDialog(frmcrawler,"Head updated to Trade Line Identity : "+String.valueOf(id), "INFO",JOptionPane.INFORMATION_MESSAGE);
+				//JOptionPane.showMessageDialog(frmcrawler,"Head updated to Trade Line Identity : "+String.valueOf(id), "INFO",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 			{
@@ -464,7 +465,7 @@ public class Crawler {
 				dbobj.executeNonQuery(h2con, "UPDATE TBL_TRADE_LINE SET PLAYERID='"+playerdata.get(0).getSecid()+"', PLAYERDISPLAY='"+strplayerdisplay+"', SYMBOL='"+playerdata.get(0).getSymbol()+"', EXCHANGE ='"+playerdata.get(0).getExchange()+"', INSTRUMENT='"+playerdata.get(0).getInstrument()+"', LOTSIZE='"+playerdata.get(0).getLotsize()+"', "
 						+ "TICKSIZE='"+playerdata.get(0).getTicksize()+"', EXPDD='"+playerdata.get(0).getExpdd()+"', EXPMONTHYEAR='"+playerdata.get(0).getExpmonthyear()+"',OPTTYPE='"+playerdata.get(0).getOpttype()+"', STRIKE='"+playerdata.get(0).getStrike()+"' WHERE ID = "+seedid+"");
 				dbobj.executeNonQuery(h2con, "UPDATE TBL_BEAST_VIEW SET PLAYERDISPLAY='"+strplayerdisplay+"' where ID="+seedid+"");
-				JOptionPane.showMessageDialog(frmcrawler,"Player Updated to Trade Line Identity : "+String.valueOf(id), "INFO",JOptionPane.INFORMATION_MESSAGE);
+				//JOptionPane.showMessageDialog(frmcrawler,"Player Updated to Trade Line Identity : "+String.valueOf(id), "INFO",JOptionPane.INFORMATION_MESSAGE);
 			}
 			else
 			{
